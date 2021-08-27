@@ -24,6 +24,7 @@ public class TriangleClassification {
             return EQUILATERAL;
         }
 
+
         int max = Math.max(a, Math.max(b, c));
 
         if ((max == a && max - b - c >= 0) ||
