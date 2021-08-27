@@ -13,6 +13,7 @@ public class Wget {
         System.out.println(data);
     }
 
+    // Test URL - https://introcs.cs.princeton.edu/data/codes.csv
     private static String readData(String urlString)  {
         StringBuilder content = new StringBuilder();
         try {
