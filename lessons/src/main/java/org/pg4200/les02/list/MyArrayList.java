@@ -8,6 +8,7 @@ public class MyArrayList<T> implements MyList<T> {
     protected Object[] data;
     protected int size = 0;
 
+
     public MyArrayList(){
         this(10);
     }
