@@ -229,6 +229,7 @@ public abstract class MyListTestTemplate {
         assertEquals("c", data.get(3));
     }
 
+
     @Test
     public void testInsertLast(){
 
