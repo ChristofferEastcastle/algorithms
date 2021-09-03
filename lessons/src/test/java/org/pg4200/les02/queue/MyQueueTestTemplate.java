@@ -191,4 +191,9 @@ public abstract class MyQueueTestTemplate {
         assertEquals(0, queue.size());
     }
 
+    @Test
+    public void testRing() {
+
+    }
+
 }

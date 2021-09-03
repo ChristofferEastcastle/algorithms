@@ -153,7 +153,7 @@ public abstract class MyListTestTemplate {
         data.add(2);
 
 
-        assertEquals(5, data.size());
+            assertEquals(5, data.size());
 
         data.delete(3);
 

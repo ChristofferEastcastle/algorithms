@@ -124,7 +124,6 @@ public class MyQueueArray<T> implements MyQueue<T>{
             data[head] = null;
             head++;
         }
-
         return value;
     }
 
