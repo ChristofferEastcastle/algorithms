@@ -1,5 +1,7 @@
 package org.pg4200.ex03;
 
+import java.util.Arrays;
+
 public class SortCheckerImp implements SortChecker{
 
     @Override
@@ -12,12 +14,16 @@ public class SortCheckerImp implements SortChecker{
 
         if (original.length == 1 && sorted.length == 1) return true;
 
-        T t = sorted[0];
-        if (t == null) return false;
-        for (int i = 1; i < sorted.length; i++) {
-            if (sorted[i] == null) return false;
-            if (sorted[i].compareTo(sorted[i - 1]) < 0) return false;
-            if (sorted[i].compareTo(t) < 0) return false;
+        if (original.length != sorted.length) return false;
+
+        for (int i = 0; i < sorted.length; i++) {
+            if (sorted[i] == null || original[i] == null) return false;
+        }
+        T[] array = original.clone();
+        Arrays.sort(array);
+
+        for (int i = 0; i < array.length; i++) {
+            if (sorted[i] != array[i]) return false;
         }
 
         return true;
