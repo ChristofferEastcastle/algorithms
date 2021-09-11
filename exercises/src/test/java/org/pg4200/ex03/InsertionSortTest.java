@@ -1,7 +1,6 @@
 package org.pg4200.ex03;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -9,14 +8,14 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class OptimizedBubbleSortTest {
+public class InsertionSortTest {
     private static Integer[] integers;
 
     @BeforeAll
     static void createArrays() {
-        integers = new Integer[10000];
+        integers = new Integer[100000];
         Random rand = new Random();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100000; i++) {
             integers[i] = rand.nextInt(25000);
         }
     }
@@ -25,9 +24,9 @@ public class OptimizedBubbleSortTest {
     void testCustomInputStringsOptimized() {
         String[] customInput = {"c", "b", "a", "d", "e", "f"};
         String[] sorted = {"a", "b", "c", "d", "e", "f"};
-        OptimizedBubbleSort sorter = new OptimizedBubbleSort();
+        InsertionSort sorter = new InsertionSort();
 
-        int out = sorter.sort(customInput, new Comparator<>(), true);
+        sorter.sort(customInput, new Comparator<>());
         assertArrayEquals(sorted, customInput);
     }
 
@@ -35,10 +34,9 @@ public class OptimizedBubbleSortTest {
     void testCustomInputStringsNotOptimized() {
         String[] customInput = {"c", "b", "a", "d", "e", "f"};
         String[] sorted = {"a", "b", "c", "d", "e", "f"};
-        OptimizedBubbleSort sorter = new OptimizedBubbleSort();
+        InsertionSort sorter = new InsertionSort();
 
-        int out = sorter.sort(customInput, new Comparator<>(), false);
-
+        sorter.sort(customInput, new Comparator<>());
 
         assertArrayEquals(sorted, customInput);
     }
@@ -48,29 +46,15 @@ public class OptimizedBubbleSortTest {
         Integer[] actual = integers.clone();
         Integer[] array = integers.clone();
 
-        Arrays.sort(actual);
-        OptimizedBubbleSort sorter = new OptimizedBubbleSort();
-
         long start = System.currentTimeMillis();
-        int out = sorter.sort(array, new Comparator<>(), false);
-        long end = System.currentTimeMillis();
-        //System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
-        assertArrayEquals(actual, array);
-    }
-
-    @Test
-    void testCustomInputIntsOptimized() {
-        Integer[] actual = integers.clone();
-        Integer[] array = integers.clone();
-
         Arrays.sort(actual);
-        OptimizedBubbleSort sorter = new OptimizedBubbleSort();
-
-        long start = System.currentTimeMillis();
-        int out = sorter.sort(array, new Comparator<>(), true);
         long end = System.currentTimeMillis();
-
-        System.out.printf("%d : %.3fs\n", out, (end - start) * 0.001);
+        System.out.printf("%.3fs\n", (end - start) * 0.001);
+        InsertionSort sorter = new InsertionSort();
+        start = System.currentTimeMillis();
+        sorter.sort(array, new Comparator<>());
+        end = System.currentTimeMillis();
+        System.out.printf("%.3fs\n", (end - start) * 0.001);
         assertArrayEquals(actual, array);
     }
 
@@ -84,8 +68,8 @@ public class OptimizedBubbleSortTest {
         GameUser[] actual = array.clone();
         Arrays.sort(actual);
 
-        OptimizedBubbleSort sorter = new OptimizedBubbleSort();
-        sorter.sort(array, new Comparator<>(), true);
+        InsertionSort sorter = new InsertionSort();
+        sorter.sort(array, new Comparator<>());
 
         assertArrayEquals(actual, array);
     }
