@@ -32,6 +32,8 @@ public class GameUser implements Comparable<GameUser> {
     @Override
     public int compareTo(GameUser o) {
         if (points > o.getPoints()) return 1;
-        return -1;
+        else if (points < o.getPoints()) return  -1;
+
+        return userId.compareTo(o.userId);
     }
 }
