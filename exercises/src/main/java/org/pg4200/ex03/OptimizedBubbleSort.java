@@ -6,7 +6,9 @@ import java.util.Comparator;
 public class OptimizedBubbleSort {
 
     public <T> int sort(T[] array, Comparator<T> comparator, boolean optimized) {
-        int comparatorCalled = 0, size = array.length - 1;
+        if (array == null) return 0;
+
+        int counter = 0, size = array.length - 1;
         int lastSwapped = size;
 
         boolean swapped = true;
@@ -16,7 +18,7 @@ public class OptimizedBubbleSort {
 
             for (int i = 0; i < size; i++) {
                 if (comparator.compare(array[i], array[i + 1]) > 0) {
-                    comparatorCalled++;
+                    counter++;
                     T temp = array[i];
                     array[i] = array[i + 1];
                     array[i + 1] = temp;
@@ -28,6 +30,6 @@ public class OptimizedBubbleSort {
                 if (swapped) size = lastSwapped;
             }
         }
-        return comparatorCalled;
+        return counter;
     }
 }
