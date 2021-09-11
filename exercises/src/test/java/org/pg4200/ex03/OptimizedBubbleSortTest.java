@@ -10,16 +10,17 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class OptimizedBubbleSortTest {
-    private Integer[] integers;
+    private static Integer[] integers;
 
-    @BeforeEach
-    void createArrays() {
+    @BeforeAll
+    static void createArrays() {
         integers = new Integer[10000];
         Random rand = new Random();
         for (int i = 0; i < 10000; i++) {
             integers[i] = rand.nextInt(25000);
         }
     }
+
     @Test
     void testCustomInputStringsOptimized() {
         String[] customInput = {"c", "b", "a", "d", "e", "f"};
@@ -56,30 +57,30 @@ public class OptimizedBubbleSortTest {
     @Test
     void testCustomInputIntsNotOptimized() {
         Integer[] actual = integers.clone();
-        for (int i : actual) System.out.printf("%d, ", i);
-        System.out.println();
+        Integer[] array = integers.clone();
+
         Arrays.sort(actual);
         OptimizedBubbleSort sorter = new OptimizedBubbleSort();
 
         long start = System.currentTimeMillis();
-        int out = sorter.sort(integers, new Comparator<>(), false);
+        int out = sorter.sort(array, new Comparator<>(), false);
         long end = System.currentTimeMillis();
-        System.out.printf("%d : %d\n", out, (end - start));
-        assertArrayEquals(actual, integers);
+        System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
+        assertArrayEquals(actual, array);
     }
 
     @Test
     void testCustomInputIntsOptimized() {
         Integer[] actual = integers.clone();
-        for (int i : actual) System.out.printf("%d, ", i);
-        System.out.println();
+        Integer[] array = integers.clone();
+
         Arrays.sort(actual);
         OptimizedBubbleSort sorter = new OptimizedBubbleSort();
 
         long start = System.currentTimeMillis();
-        int out = sorter.sort(integers, new Comparator<>(), true);
+        int out = sorter.sort(array, new Comparator<>(), true);
         long end = System.currentTimeMillis();
-        System.out.printf("%d : %d\n", out, (end - start));
-        assertArrayEquals(actual, integers);
+        System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
+        assertArrayEquals(actual, array);
     }
 }
