@@ -2,7 +2,7 @@ package org.pg4200.ex03;
 
 import java.util.Objects;
 
-public class GameUser {
+public class GameUser implements Comparable<GameUser> {
 
     private String userId;
 
@@ -27,5 +27,11 @@ public class GameUser {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    @Override
+    public int compareTo(GameUser o) {
+        if (points > o.getPoints()) return 1;
+        return -1;
     }
 }

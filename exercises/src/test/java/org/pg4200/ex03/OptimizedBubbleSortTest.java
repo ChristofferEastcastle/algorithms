@@ -28,13 +28,6 @@ public class OptimizedBubbleSortTest {
         OptimizedBubbleSort sorter = new OptimizedBubbleSort();
 
         int out = sorter.sort(customInput, new Comparator<>(), true);
-        System.out.println(out);
-
-        for (String s : customInput) {
-            System.out.printf("%s, ", s);
-        }
-        System.out.println();
-
         assertArrayEquals(sorted, customInput);
     }
 
@@ -45,11 +38,7 @@ public class OptimizedBubbleSortTest {
         OptimizedBubbleSort sorter = new OptimizedBubbleSort();
 
         int out = sorter.sort(customInput, new Comparator<>(), false);
-        System.out.println(out);
 
-        for (String s : customInput) {
-            System.out.printf("%s, ", s);
-        }
 
         assertArrayEquals(sorted, customInput);
     }
@@ -65,7 +54,7 @@ public class OptimizedBubbleSortTest {
         long start = System.currentTimeMillis();
         int out = sorter.sort(array, new Comparator<>(), false);
         long end = System.currentTimeMillis();
-        System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
+        //System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
         assertArrayEquals(actual, array);
     }
 
@@ -80,7 +69,24 @@ public class OptimizedBubbleSortTest {
         long start = System.currentTimeMillis();
         int out = sorter.sort(array, new Comparator<>(), true);
         long end = System.currentTimeMillis();
-        System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
+
+        //System.out.printf("%d : %.3f\n", out, (end - start) * 0.001);
+        assertArrayEquals(actual, array);
+    }
+
+    @Test
+    void sortGameUserObjects() {
+        GameUser[] array = new GameUser[100];
+        int j = 100;
+        for (int i = 0; i < 100; i++) {
+            array[i] = new GameUser(String.valueOf(j--), j);
+        }
+        GameUser[] actual = array.clone();
+        Arrays.sort(actual);
+
+        OptimizedBubbleSort sorter = new OptimizedBubbleSort();
+        sorter.sort(array, new Comparator<>(), true);
+
         assertArrayEquals(actual, array);
     }
 }
