@@ -28,27 +28,20 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
                     tail = 0;
                 } else {
                     var tempArray = new Object[data.length * 2];
-                    for (int i = 0; i < data.length; i++) {
-                        tempArray[i] = data[i];
-                    }
+                    System.arraycopy(data, 0, tempArray, 0, data.length);
                     data = tempArray;
                     tail++;
                 }
             }
         } else {
-            assert tail < head;
             if (tail < head - 1) {
                 tail++;
             } else {
                 int size = data.length - head;
                 var newArray = new Object[data.length * 2];
-                for (int i = 0; i < size; i++) {
-                    newArray[i] = data[head + i];
-                }
+                if (size >= 0) System.arraycopy(data, head, newArray, 0, size);
 
-                for (int i = 0; i < tail + 1; i++) {
-                    newArray[size + i] = data[i];
-                }
+                if (tail + 1 >= 0) System.arraycopy(data, 0, newArray, size, tail + 1);
                 head = 0;
                 tail = data.length;
                 data = newArray;
@@ -97,13 +90,5 @@ public class MyRingArrayQueue<T> implements MyQueue<T> {
 
             return size;
         }
-    }
-
-    private Object[] copyToNew() {
-        var array = new Object[data.length * 2];
-        for (int i = 0; i < data.length - head; i++) {
-            array[i] = data[i + head];
-        }
-        return array;
     }
 }
