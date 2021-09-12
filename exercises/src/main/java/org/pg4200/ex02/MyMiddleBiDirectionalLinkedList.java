@@ -42,7 +42,7 @@ public class MyMiddleBiDirectionalLinkedList<T> implements MyList<T> {
                 current = nextTraversal(index, 0, head);
             } else if (index > (size / 4) && index <= size / 2) {
                 current = prevTraversal(index, size / 2, middle);
-            } else if (index == size / 2 || index < (size / 2) + (size / 4)) {
+            } else if (index >= size / 2 && index < (size / 2) + (size / 4)) {
                 current = nextTraversal(index, size / 2, middle);
             } else {
                 current = prevTraversal(index, size - 1, tail);
