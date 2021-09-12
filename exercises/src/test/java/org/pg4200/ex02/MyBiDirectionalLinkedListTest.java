@@ -10,7 +10,7 @@ public class MyBiDirectionalLinkedListTest extends MyListTestTemplate {
 
     @Override
     protected <T> MyList<T> getNewInstance(Class<T> klass) {
-        return new MyBiDirectionalLinkedList<>();
+        return new MyMiddleBiDirectionalLinkedList<>();
     }
 
     @Test
