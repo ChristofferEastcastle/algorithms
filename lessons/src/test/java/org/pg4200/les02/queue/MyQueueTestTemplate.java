@@ -18,17 +18,17 @@ public abstract class MyQueueTestTemplate {
     protected MyQueue<Integer> queue;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         queue = getNewInstance(Integer.class);
     }
 
     @Test
-    public void testEmpty(){
+    public void testEmpty() {
         assertTrue(queue.isEmpty());
     }
 
     @Test
-    public void testEnqueue(){
+    public void testEnqueue() {
 
         assertEquals(0, queue.size());
 
@@ -39,7 +39,7 @@ public abstract class MyQueueTestTemplate {
 
 
     @Test
-    public void testFailToDequeueOnEmpty(){
+    public void testFailToDequeueOnEmpty() {
 
         assertThrows(RuntimeException.class,
                 () -> queue.dequeue());
@@ -47,7 +47,7 @@ public abstract class MyQueueTestTemplate {
 
 
     @Test
-    public void testInsertAndPeek(){
+    public void testInsertAndPeek() {
 
         int n = 42;
 
@@ -60,7 +60,7 @@ public abstract class MyQueueTestTemplate {
 
 
     @Test
-    public void testInsertAndRemove(){
+    public void testInsertAndRemove() {
 
         int n = 42;
 
@@ -78,7 +78,7 @@ public abstract class MyQueueTestTemplate {
 
 
     @Test
-    public void testInsertAndRemoveThreeTimes(){
+    public void testInsertAndRemoveThreeTimes() {
 
         queue.enqueue(0);
         queue.enqueue(1);
@@ -109,11 +109,11 @@ public abstract class MyQueueTestTemplate {
      */
 
     @Test
-    public void testManyInsertionsWithSmallSize(){
+    public void testManyInsertionsWithSmallSize() {
 
         queue.enqueue(0);
 
-        for(int i=0; i< 1_000; i++){
+        for (int i = 0; i < 1_000; i++) {
             queue.enqueue(42);
             queue.dequeue();
         }
@@ -123,11 +123,11 @@ public abstract class MyQueueTestTemplate {
     }
 
     @Test
-    public void testManyInsertionWithLargeSize(){
+    public void testManyInsertionWithLargeSize() {
 
         int n = 1_000;
 
-        for(int i=0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             queue.enqueue(i);
             queue.enqueue(i);
             queue.dequeue();
@@ -135,21 +135,21 @@ public abstract class MyQueueTestTemplate {
         }
 
         assertEquals(n, queue.size());
-        assertEquals(n/2, queue.peek().intValue());
+        assertEquals(n / 2, queue.peek().intValue());
     }
 
     @Test
-    public void testLargeQueue(){
+    public void testLargeQueue() {
 
         int n = 1_000;
 
-        for(int i=0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             queue.enqueue(i);
         }
 
         assertEquals(n, queue.size());
 
-        for(int i=0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             int res = queue.dequeue();
             assertEquals(i, res);
         }
@@ -158,42 +158,36 @@ public abstract class MyQueueTestTemplate {
     }
 
     @Test
-    public void testSteps(){
+    public void testSteps() {
 
         int n = 1_000;
-        int half = n /2;
-        int quarter = n/4;
+        int half = n / 2;
+        int quarter = n / 4;
 
-        for(int i=0; i<  half; i++){
+        for (int i = 0; i < half; i++) {
             queue.enqueue(i);
         }
 
         assertEquals(half, queue.size());
 
-        for(int i=0; i< quarter; i++){
+        for (int i = 0; i < quarter; i++) {
             int res = queue.dequeue();
             assertEquals(i, res);
         }
 
         assertEquals(quarter, queue.size());
 
-        for(int i=half; i< n; i++){
+        for (int i = half; i < n; i++) {
             queue.enqueue(i);
         }
 
         assertEquals(quarter + half, queue.size());
 
-        for(int i=quarter; i< n; i++){
+        for (int i = quarter; i < n; i++) {
             int res = queue.dequeue();
             assertEquals(i, res);
         }
 
         assertEquals(0, queue.size());
     }
-
-    @Test
-    public void testRing() {
-
-    }
-
 }
