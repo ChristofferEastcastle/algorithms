@@ -36,4 +36,17 @@ public class GameUser implements Comparable<GameUser> {
 
         return userId.compareTo(o.userId);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GameUser)) return false;
+        GameUser gameUser = (GameUser) o;
+        return points == gameUser.points && Objects.equals(userId, gameUser.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, points);
+    }
 }
