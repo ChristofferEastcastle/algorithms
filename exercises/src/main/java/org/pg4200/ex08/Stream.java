@@ -13,14 +13,6 @@ public class Stream {
         return new Pipeline<T, T, T>(collection.iterator());
     }
 
-    protected static abstract class ChainedReference<IN, OUT> implements Consumer<IN> {
-
-        protected final Consumer<OUT> downstream;
-
-        public ChainedReference(Consumer<OUT> downstream) {
-            this.downstream = Objects.requireNonNull(downstream);
-        }
-    }
 
     private class Pipeline<IN, OUT, T> implements AnotherStream<OUT> {
         private final Iterator<T> iterator;
@@ -52,7 +44,7 @@ public class Stream {
             return (Consumer<T>) consumer;
         }
 
-        private Consumer<OUT> chainConsumerToCurrentPipe(Consumer<OUT> consumer) {
+        protected ChainedReference<IN, OUT> chainConsumerToCurrentPipe(Consumer<OUT> consumer) {
             throw new IllegalStateException();
         }
 
@@ -94,24 +86,25 @@ public class Stream {
 
         @Override
         public AnotherStream<OUT> distinct() {
+            return new Pipeline<OUT, OUT, T>(this) {
 
-            AnotherStreamList<OUT> list = new AnotherStreamList<>();
-
-            var collectingConsumer = new Consumer<OUT>() {
                 @Override
-                public void accept(OUT out) {
-                    if (!list.contains(out)) list.add(out);
+                public ChainedReference<OUT, OUT> chainConsumerToCurrentPipe(Consumer<OUT> consumer) {
+
+                    return new ChainedReference<OUT, OUT>(consumer) {
+
+                        HashSet<OUT> set = new HashSet<>();
+
+                        @Override
+                        public void accept(OUT out) {
+                            if (!set.contains(out)) {
+                                set.add(out);
+                                downstream.accept(out);
+                            }
+                        }
+                    };
                 }
             };
-
-            Consumer<T> chain = chainAllConsumersInThePipeline(collectingConsumer);
-
-            while (iterator.hasNext()) {
-                T element = iterator.next();
-                chain.accept(element);
-            }
-
-            return list.stream();
         }
 
         @Override
@@ -134,7 +127,9 @@ public class Stream {
                 if (counter[0]-- > 0) continue;
 
                 chain.accept(element);
+
             }
+
 
             return list.stream();
         }
@@ -143,5 +138,16 @@ public class Stream {
         public AnotherStream<OUT> sorted() {
             return null;
         }
+
+
     }
+    protected static abstract class ChainedReference<IN, OUT> implements Consumer<IN> {
+
+        protected final Consumer<OUT> downstream;
+
+        public ChainedReference(Consumer<OUT> downstream) {
+            this.downstream = Objects.requireNonNull(downstream);
+        }
+    }
+
 }
