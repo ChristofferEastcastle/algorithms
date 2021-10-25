@@ -8,6 +8,16 @@ public class QueueLinkedList<T> implements MyQueue<T> {
     private Node head;
     private Node tail;
 
+    public boolean contains(T value) {
+        Node current = head;
+
+        while (current != null) {
+            if (current.equals(value)) return true;
+            current = current.next;
+        }
+        return false;
+    }
+
     public void print() {
         Node current = head;
         while (current != null) {
