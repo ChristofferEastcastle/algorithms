@@ -13,7 +13,7 @@ public class PatternExamplesImp implements PatternExamples {
 
     @Override
     public String emailRegex() {
-        return null;
+        return "((?s).+)@(?s).+";
     }
 
     @Override
