@@ -19,28 +19,15 @@ public class GradeCompressorImp implements GradeCompressor {
         int i = 0;
         while (i < idsAndGrades.length()) {
             char c = idsAndGrades.charAt(i);
-            String digits = "";
+            StringBuilder digits = new StringBuilder();
             while ((Character.isDigit(c))) {
-                digits += c;
+                digits.append(c);
                 c = idsAndGrades.charAt(++i);
             }
             writer.write(grades.get(c), 3);
             i++;
-            switch (digits.length()) {
-                case 1:
-                    writer.write(0b01, 2);
-                    break;
-                case 2:
-                    writer.write(0b10, 2);
-                    break;
-                case 3:
-                    writer.write(0b11, 2);
-                    break;
-            }
-            for (String digit : digits.split("")) {
-                int parsed = Integer.parseInt(digit);
-                writer.write(parsed, 4);
-            }
+
+            writer.write(Integer.parseInt(digits.toString()), 9);
         }
         return writer.extract();
     }
@@ -52,13 +39,7 @@ public class GradeCompressorImp implements GradeCompressor {
         while (true) {
             try {
                 char grade = findChar(reader.readInt(3));
-                int pow = reader.readInt(2);
-                StringBuilder scientific = new StringBuilder();
-                for (int i = 0; i < pow; i++) {
-                    scientific.append(reader.readInt(4));
-                }
-                if (scientific.length() == 0) break;
-                output.append(scientific).append(grade);
+                output.append(reader.readInt(9)).append(grade);
             } catch (IllegalArgumentException | IllegalStateException e) {
                 break;
             }
