@@ -18,6 +18,9 @@ public class PatternExamplesImp implements PatternExamples {
 
     @Override
     public String isItAJoke() {
+        /**Is this an out of season april fools joke?**/
+        //"((((((((i|I)s|S)\\s)t|T)h|H)i|I)s|S)\\s)";
+        //return "(is\\sthis\\san\\sout\\sof\\sseason\\sapril\\sfools\sjoke?)";
         return null;
     }
 }
