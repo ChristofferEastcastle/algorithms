@@ -28,7 +28,7 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         int firstKeyCmp = key.compareTo(subTree.firstKey);
 
         if (firstKeyCmp < 0) {
-            subTree.left = put(key, value, subTree);
+            subTree.left = put(key, value, subTree.left);
         } else if (firstKeyCmp == 0) {
             subTree.firstValue = value;
         } else {
@@ -37,6 +37,16 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
                 size++;
                 subTree.secondKey = key;
                 subTree.secondValue = value;
+            } else {
+                int secondKeyCompare = key.compareTo(subTree.secondKey);
+
+                if (secondKeyCompare < 0) {
+                    subTree.middle = put(key, value, subTree.middle);
+                } else if (secondKeyCompare == 0) {
+                    subTree.secondValue = value;
+                } else {
+                    subTree.right = put(key, value, subTree.right);
+                }
             }
         }
         return subTree;
@@ -56,14 +66,29 @@ public class TernaryTreeMap<K extends Comparable<K>, V> implements MyMapTreeBase
         if (cmp < 0) {
             subTree.left = delete(key, subTree);
             return subTree;
-        }
+        } else if (cmp == 0) {
 
-        if (cmp > 0) {
-            subTree.right = delete(key, subTree);
+            Node smallest = findSmallest(key,subTree);
+            subTree.firstKey = null;
+            subTree.secondKey = null;
             return subTree;
+        } else {
+            int secondCmp = key.compareTo(subTree.secondKey);
+
+            if (secondCmp < 0) {
+                subTree.middle = delete(key, subTree);
+            } else if (secondCmp == 0) {
+                //subTree = swap()
+            }
+
         }
         subTree.middle = delete(key, subTree);
         return subTree;
+    }
+
+    private Node findSmallest(K key, Node subTree) {
+        if (subTree.firstKey == null) return subTree;
+        return null;
     }
 
     @Override

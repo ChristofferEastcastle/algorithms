@@ -44,6 +44,8 @@ public class MyBiDirectionalLinkedListTest extends MyListTestTemplate {
         }
 
         assertEquals(n, data.size());
+
+        ((MyMiddleBiDirectionalLinkedList) data).findMiddle();
     }
 
     @Test

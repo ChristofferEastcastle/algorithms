@@ -58,10 +58,10 @@ public class GradeCompressorImp implements GradeCompressor {
 
     public static void main(String[] args) {
         GradeCompressor gradeCompressor = new GradeCompressorImp();
-        String string = "1A54C";
+        String string = "1A54C232F511E";
         byte[] compressed = gradeCompressor.compress(string);
         var cloned = compressed.clone();
-        print(new BitReader(cloned), 22);
+        print(new BitReader(cloned), 48);
         String decompressed = gradeCompressor.decompress(compressed);
         System.out.println(decompressed.equals(string));
     }

@@ -4,8 +4,6 @@ import org.pg4200.les02.list.MyList;
 
 public class MyMiddleBiDirectionalLinkedList<T> implements MyList<T> {
 
-
-
     private class Node {
         T value;
         Node next;
@@ -20,7 +18,7 @@ public class MyMiddleBiDirectionalLinkedList<T> implements MyList<T> {
 
     private int size = 0;
 
-
+    private int midIndex = 0;
     @Override
     public void delete(int index) {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
@@ -52,6 +50,18 @@ public class MyMiddleBiDirectionalLinkedList<T> implements MyList<T> {
             current.prev.next = current.next;
         }
         size--;
+        if (size < 3) midIndex = 0;
+        else midIndex--;
+        updateMiddle();
+    }
+
+    private void updateMiddle() {
+        int midPos = size / 2;
+        if (midIndex < midPos) {
+            middle = nextTraversal(midPos, 0, head);
+        } else if (midIndex > midPos){
+            middle = prevTraversal(midPos, size - 1, tail);
+        }
     }
 
     private Node prevTraversal(int index, int counter, Node current) {
@@ -150,6 +160,8 @@ public class MyMiddleBiDirectionalLinkedList<T> implements MyList<T> {
             }
         }
         size++;
+        if (size >= 3) midIndex++;
+        updateMiddle();
     }
 
     @Override
@@ -164,5 +176,16 @@ public class MyMiddleBiDirectionalLinkedList<T> implements MyList<T> {
             System.out.printf("%s --> ", current.value);
             current = current.next;
         }
+    }
+    public void findMiddle() {
+        Node current = head;
+        int counter = 0;
+        while (current != middle) {
+            current = current.next;
+            counter++;
+        }
+
+        System.out.println(counter);
+
     }
 }
