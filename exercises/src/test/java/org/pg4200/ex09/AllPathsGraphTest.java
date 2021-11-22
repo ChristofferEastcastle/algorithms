@@ -14,7 +14,7 @@ public class AllPathsGraphTest {
 
     @Test
     void testAllPaths() {
-        AllPathsGraph<String> graph = new AllPathsGraph<>();
+        AllPathsGraph2<String> graph = new AllPathsGraph2<>();
         graph.addEdge("0","X");
         graph.addEdge("X","1");
         graph.addEdge("X","Y");
